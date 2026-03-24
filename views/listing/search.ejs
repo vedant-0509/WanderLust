@@ -1,0 +1,19 @@
+<% layout("/layouts/boiler") %>
+
+<div class="row row-cols-1 row-cols-md-3 row-cols-sm-1 g-4 mt-3">
+        <% for(let list of result) { %>
+            <div class="col card-div">
+                <a href="/allList/<%= list._id %>" class="text-decoration-none text-dark">
+                    <div class="card h-100 shadow-sm listing-card">
+                        <img src="<%= list.image.url %>" class="card-img-top" alt="<%= list.title %>" style="height: 200px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title"><b><%= list.title %></b></h5>
+                            <p class="card-text text-muted"><%= list.location %>, <%= list.country %></p>
+                            <p class="card-text">&#8377; <%= list.price %> / night</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        <% } %>
+    </div>
+</div>
