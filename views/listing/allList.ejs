@@ -37,7 +37,7 @@
         <% for(let list of lists) { %>
             <div class="col card-div">
                 <a href="/allList/<%= list._id %>" class="text-decoration-none text-dark">
-                    <div class="card h-100 shadow-sm listing-card"  style="border: none !important;">
+                    <div class="card h-100 shadow-sm listing-card" style="border: none !important; border-top-left-radius:1rem !important">
                         <img src="<%= list.image.url %>" class="card-img-top" alt="<%= list.title %>" style="height: 200px; object-fit: cover; border-top-left-radius: 1rem; border-top-right-radius: 1rem;">
                         <div class="card-body">
                             <h5 class="card-title"><b><%= list.title %></b></h5>

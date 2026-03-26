@@ -1,20 +1,21 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-
 const path = require("path");
-
 const methodOverride = require("method-override");
-
 const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError.js");
-
 const listingRoutes = require("./routes/listing.js");
 const reviewRoutes = require("./routes/review.js");
-
+const userRoutes = require("./routes/user.js");
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const flash = require('connect-flash');
+
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
+const User = require("./models/user.js");
+
 
 
 // View Engine
@@ -29,6 +30,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(methodOverride("_method"));
 app.use(cookieParser("secretcode"));
+app.use(flash());
 
 
 // DB Connection
@@ -40,7 +42,7 @@ main()
 .then(() => console.log("Connected to DB"))
 .catch(err => console.log(err));
 
-
+//session parameters
 const sessionParameter = {
   secret: 'codesecrete',
   resave: false,
@@ -51,18 +53,45 @@ const sessionParameter = {
     httpOnly: true, 
   }
 }
-app.use(flash());
+
+
 app.use(session(sessionParameter));
 
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+
+
+//flash key value 
 app.use((req, res, next) => {
   res.locals.done = req.flash("done");
   res.locals.error = req.flash("error");
   next();
 });
 
+
+
+// app.get("/register", async (req, res) => {
+//   let sample = new User({
+//     email: "vedant@gmail.com",
+//     username: "Vedant12",
+//   });
+
+//   let newUser = await User.register(sample, "vedant@1234");
+//   res.send(newUser);
+// });
+
+
+
 // Routes
 app.use("/allList", listingRoutes);
 app.use("/listing/:id/review", reviewRoutes);
+app.use("/", userRoutes);
 
 
 
