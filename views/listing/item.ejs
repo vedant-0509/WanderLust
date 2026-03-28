@@ -23,20 +23,58 @@
 
         <div class="hr"></div>
 
-        <div class="review" style="margin: 0.5rem 1rem !important;">
+        <div class="review" style="margin: 1rem;">
             <div class="see-review">
-                <h4 style="margin-left: .2rem;">All Comments</h4>
-                <div class="see-review-div">
-                    <% for(let review of item.review) { %>
-                        <div class="border p-2 mb-3 see-review-card">
-                            <p>Rating: <%= review.rating %></p>
-                            <p>Comment: <%= review.comment %></p>
-                            <form method="post" action="/listing/<%=item._id%>/review/<%=review._id%>?_method=DELETE">
-                                <button class="btn btn-dark">Delete</button>
-                            </form>
+                <% for(let review of item.review) { %>
+                    <div class="see-review-card">
+
+                        <div>
+                            <% if(review.rating == 1){ %>
+                                <span class="star" style="color: gold;">★</span>
+                                <span class="star" >★</span>
+                                <span class="star" >★</span>
+                                <span class="star" >★</span>
+                                <span class="star" >★</span>
+                            <% } %>
+                            <% if(review.rating == 2){ %>
+                                <span class="star" style="color: gold;">★</span>
+                                <span class="star" style="color: gold;">★</span>
+                                <span class="star" >★</span>
+                                <span class="star" >★</span>
+                                <span class="star" >★</span>
+                            <% } %>
+                            <% if(review.rating == 3){ %>
+                                <span class="star" style="color: gold;">★</span>
+                                <span class="star" style="color: gold;">★</span>
+                                <span class="star" style="color: gold;">★</span>
+                                <span class="star" >★</span>
+                                <span class="star" >★</span>
+                            <% } %>
+                            <% if(review.rating == 4){ %>
+                                <span class="star" style="color: gold;">★</span>
+                                <span class="star" style="color: gold;">★</span>
+                                <span class="star" style="color: gold;">★</span>
+                                <span class="star" style="color: gold;">★</span>
+                                <span class="star" >★</span>
+                            <% } %>
+                            <% if(review.rating == 5){ %>
+                                <span class="star" style="color: gold;">★</span>
+                                <span class="star" style="color: gold;">★</span>
+                                <span class="star" style="color: gold;">★</span>
+                                <span class="star" style="color: gold;">★</span>
+                                <span class="star" style="color: gold;">★</span>
+                            <% } %>
+                            <div style="display: inline-block;">|</div>
+                            <div style="display: inline-block;">
+                                <%= review.date.toLocaleDateString("en-IN", {month: "short", year: "numeric"}) %>
+                            </div>
                         </div>
-                    <% } %>   
-                </div>
+                        <p><%= review.comment %></p>
+                        <form method="post" action="/listing/<%=item._id%>/review/<%=review._id%>?_method=DELETE">
+                            <button class="btn btn-dark btn-sm">Delete</button>
+                        </form>
+                    </div>
+                <% } %> 
             </div>
         </div>
         
@@ -50,14 +88,19 @@
                         <label style="margin: .4rem .2rem;" class="form-label"><b>Comment</b></label>
                         <textarea name="review[comment]" rows="5" class="form-control" required></textarea>
                     </div>
-                    <div>
-                        <label style="margin: .4rem .2rem;" class="form-label"><b>Rating</b></label>
-                        <input class="form-control" name="review[rating]" min="1" max="5" required>
+                    <div style="margin-top: .5rem;">
+                        <span onclick="gfg(1)" class="star" style=" font-size: 27px;">★</span>
+                        <span onclick="gfg(2)" class="star" style=" font-size: 27px;">★</span>
+                        <span onclick="gfg(3)" class="star" style=" font-size: 27px;">★</span>
+                        <span onclick="gfg(4)" class="star" style=" font-size: 27px;">★</span>
+                        <span onclick="gfg(5)" class="star" style=" font-size: 27px;">★</span>
+                        <h3 id="output">Rating is: 0/5</h3>
+
+                        <input type="hidden" name="review[rating]" id="ratingInput" required>
                     </div>
                     <button class="btn btn-dark" style="margin: .8rem 0rem;">Add Review</button>
                 </form>
             </div>
         </div>
-
     </div>
 </div>

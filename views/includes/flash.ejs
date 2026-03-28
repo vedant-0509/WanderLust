@@ -1,25 +1,31 @@
-<% if (done && done.length > 0) { %>
-<div class="container mt-3">
-    <div class="row justify-content-center">
-        <div class="col-md-3">
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <p class="mb-0"><%= done %></p>
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            </div>
-        </div>
+<!-- SUCCESS MESSAGE -->
+<% if (done && done.length) { %>
+<div class="d-flex justify-content-center mt-3">
+    <div class="alert alert-success alert-dismissible fade show px-4 pe-5 custom-alert" role="alert" style="margin-bottom: 0 !important;" >
+        
+        <span><%= done[0] %></span>
+
+        <button type="button"
+                class="btn-close position-absolute top-50 end-0 translate-middle-y me-3"
+                data-bs-dismiss="alert"
+                style="box-shadow: none; margin-right: 0rem !important;">
+        </button>
     </div>
 </div>
 <% } %>
 
-<% if (error && error.length > 0) { %>
-<div class="container mt-3">
-    <div class="row justify-content-center">
-        <div class="col-md-3">
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <p class="mb-0"><%= error %></p>
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            </div>
-        </div>
+<!-- ERROR MESSAGE -->
+<% if (error && error.length) { %>
+<div class="d-flex justify-content-center mt-3">
+    <div class="alert alert-danger alert-dismissible fade show px-4 pe-5 custom-alert" role="alert" style="margin-bottom: 0 !important;" >
+        
+        <span><%= error[0] %></span>
+
+        <button type="button"
+                class="btn-close position-absolute top-50 end-0 translate-middle-y me-3"
+                data-bs-dismiss="alert"
+                style="box-shadow: none; margin-right: 0rem !important;">
+        </button>
     </div>
 </div>
 <% } %>

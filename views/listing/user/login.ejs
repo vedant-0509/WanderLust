@@ -1,0 +1,47 @@
+<% layout("/layouts/boiler") %>
+
+<div class="signup-container" style="margin-top: -2rem;">
+<section class="vh-100">
+    <div class="container-fluid h-custom">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+
+            <!-- Image Section -->
+            <div class="col-md-9 col-lg-6 col-xl-5">
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp" class="img-fluid" alt="Sample image">
+            </div>
+
+            <!-- Form Section -->
+            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                <form method="POST" action="/login" novalidate class="needs-validation">
+                    <h3 style="color: #EA4335";>Welcome To WanderLust!</h3>
+
+                    <!-- username Input -->
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="form3Example3">Username</label>
+                        <input name="username" type="text" required id="form3Example3" class="form-control form-control-lg"placeholder="Enter username">
+                    </div>
+
+                    <!-- Password Input -->
+                    <div class="form-outline mb-3">
+                        <label class="form-label" for="form3Example4">Password</label>
+                        <input name="password" type="password" required id="form3Example4" class="form-control form-control-lg"placeholder="Enter password">
+                    </div>
+
+                    <!-- Remember + Forgot -->
+                    <!-- <div class="d-flex justify-content-between align-items-center">
+                        <div class="form-check mb-0">
+                            <input class="form-check-input me-2" type="checkbox" id="form2Example3">
+                            <label class="form-check-label" for="form2Example3">Remember me</label>
+                        </div>
+                    </div> -->
+
+                    <!-- Submit -->
+                    <div class="text-center text-lg-start mt-4 pt-2" style="display: flex; justify-content: space-between; align-items: center;">
+                        <button type="submit" class="btn btn-danger btn-md" style="padding-left: 1rem; padding-right: 1rem;"><b>Login</b></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+</div>

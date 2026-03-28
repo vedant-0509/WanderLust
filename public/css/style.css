@@ -223,28 +223,6 @@ body::-webkit-scrollbar {
 }
 
 
-.review, .see-review{
-    display: flex;
-    flex-direction: column;
-}
-
-.see-review{
-    height: auto;
-}
-
-.see-review-card{
-    display: flex;
-    flex-direction: column;
-    border-radius: 1rem;
-}
-
-
-.see-review-div{
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-}
-
 .card{
     margin-top: 1rem !important;
     border: none !important;
@@ -312,4 +290,87 @@ height: 100%;
   box-shadow: none !important;
   border: .75px solid black !important;
   border-color: transparent; /* optional: keep normal border */
+}
+
+
+/* ⭐ Star Container */
+.star-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+/* ⭐ Default Star */
+.star {
+    font-size: 2rem;
+    color: #ccc;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+/* ⭐ Hover Effect */
+.star:hover {
+    transform: scale(1.2);
+    color: gold;
+}
+
+/* ⭐ Active (Selected Stars) */
+.star.active {
+    color: gold;
+}
+
+/* ⭐ Output Text */
+#output {
+    margin-top: 0.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #555;
+}
+
+/* 📱 Responsive (Mobile) */
+@media (max-width: 576px) {
+    .star {
+        font-size: 1.5rem;
+    }
+
+    #output {
+        font-size: 0.9rem;
+    }
+}
+
+
+.see-review{
+    height: auto;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: auto;
+}
+
+.see-review-card{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    margin-right: 2rem;
+    margin-bottom: 3rem;
+    padding: 0rem .5rem;
+}
+
+.see-review-card p{
+    width: inherit;
+    word-wrap: break-word;
+    margin-top: -.2rem;
+    margin-bottom: .5rem;
+}
+
+.star {
+    font-size: 17px;
+    font-weight: 900;
+    height: 10rem;
+    color: lightgray;
+    cursor: pointer;
+}
+
+.star.active {
+    color: gold
 }

@@ -33,15 +33,22 @@ router.post("/searchbox", wrapAsync(async (req, res) => {
     return res.redirect("/allList");
   }
 
+  let key = search.trim();
+
   let result = await Listing.find({
     $or: [
-      { title: { $regex: search, $options: "i" } },
-      { location: { $regex: search, $options: "i" } },
-      { country: { $regex: search, $options: "i" } }
+      { title: { $regex: key, $options: "i" } },
+      { location: { $regex: key, $options: "i" } },
+      { country: { $regex: key, $options: "i" } }
     ]
   });
 
-  res.render("listing/search", { result });
+  if(result.length == 0){
+    req.flash("error", "No list found");
+    return res.redirect("/allList");
+  }
+
+  res.render("listing/search", { result, search });
 }));
 
 

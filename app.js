@@ -75,19 +75,6 @@ app.use((req, res, next) => {
 });
 
 
-
-// app.get("/register", async (req, res) => {
-//   let sample = new User({
-//     email: "vedant@gmail.com",
-//     username: "Vedant12",
-//   });
-
-//   let newUser = await User.register(sample, "vedant@1234");
-//   res.send(newUser);
-// });
-
-
-
 // Routes
 app.use("/allList", listingRoutes);
 app.use("/listing/:id/review", reviewRoutes);
