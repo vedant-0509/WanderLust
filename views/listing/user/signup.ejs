@@ -1,5 +1,6 @@
 <% layout("/layouts/boiler") %>
 
+<body class="<%= bodyClass || '' %>">
 <div class="signup-container" style="margin-top: -2rem;">
 <section class="vh-100">
     <div class="container-fluid h-custom">
@@ -11,7 +12,7 @@
             </div>
 
             <!-- Form Section -->
-            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1" style="margin-top: 3.5rem; padding: 1.5rem; border-radius: 1rem; background-color: white;">
                 <form method="POST" action="/signup" novalidate class="needs-validation">
                     <h3 style="color: #EA4335";>Welcome To WanderLust!</h3>
 
@@ -63,7 +64,7 @@
                     <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
                         <p class="lead fw-normal mb-0 me-3" style="margin-right: 0.2rem !important;">Register --></p>
                         <button type="button" class="btn btn-floating mx-1" style="background-color: #1877f2; color: white;"><span style="background-color:#1877F2; color: white;">Facebook</span></button>
-                        <button type="button" class="btn" style="border: 1px solid black; margin-left: .3rem;">
+                        <a href="/auth/google" type="button" class="btn" style="border: 1px solid black; margin-left: .3rem;">
                             <span style="height: auto; width: auto;">
                                 <span style="color:#4285F4;">G</span>
                                 <span style="color:#EA4335;">o</span>
@@ -72,12 +73,12 @@
                                 <span style="color:#34A853;">l</span>
                                 <span style="color:#EA4335;">e</span>
                             </span>
-                        </button>
+                        </a>
                     </div>
                 </form>
-                
             </div>
         </div>
     </div>
 </section>
 </div>
+</body>

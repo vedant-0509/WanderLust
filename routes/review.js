@@ -7,6 +7,8 @@ const ExpressError = require("../utils/ExpressError.js");
 const Listing = require("../models/listing.js");
 const Review = require("../models/review.js");
 
+const {isLogin} = require("../middleware.js");
+
 
 
 // Validation
@@ -19,7 +21,7 @@ const validateReview = (req, res, next) => {
 
 
 // CREATE REVIEW
-router.post("/", validateReview, wrapAsync(async (req, res) => {
+router.post("/", isLogin, validateReview, wrapAsync(async (req, res) => {
   let { id } = req.params;
 
   let item = await Listing.findById(id);
@@ -37,7 +39,7 @@ router.post("/", validateReview, wrapAsync(async (req, res) => {
 
 
 // DELETE REVIEW
-router.delete("/:reviewid", wrapAsync(async (req, res) => {
+router.delete("/:reviewid", isLogin, wrapAsync(async (req, res) => {
   let { id, reviewid } = req.params;
 
   await Listing.findByIdAndUpdate(id, {

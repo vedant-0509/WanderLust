@@ -23,7 +23,17 @@
         </div>
     </div>
 
-    <div class="menu">
-        <i class="fa-solid fa-bars"></i>
+    <div class="login-logout" style="display: flex; justify-content: start; align-items: center;">
+        <% if(!isLoginUser){ %>
+            <div class="menu">
+                <a href="/signup" style="color: black;"><i class="fa-solid fa-user"></i></a>
+            </div>
+        <% } %>
+        <% if(isLoginUser){ %>
+            <div class="menu" style="margin-left: .5rem;">
+                <a href="/logout" style="color: black;"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+            </div>
+        <% } %>
     </div>
+    
 </div>

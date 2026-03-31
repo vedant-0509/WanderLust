@@ -1,5 +1,6 @@
 <% layout("/layouts/boiler") %>
 
+<body class="<%= bodyClass || '' %>">
 <div class="signup-container" style="margin-top: -2rem;">
 <section class="vh-100">
     <div class="container-fluid h-custom">
@@ -9,9 +10,9 @@
             <div class="col-md-9 col-lg-6 col-xl-5">
                 <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp" class="img-fluid" alt="Sample image">
             </div>
-
+            
             <!-- Form Section -->
-            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1" style="padding: 1.5rem; border-radius: 1rem; background-color: white;">
                 <form method="POST" action="/login" novalidate class="needs-validation">
                     <h3 style="color: #EA4335";>Welcome To WanderLust!</h3>
 
@@ -45,3 +46,4 @@
     </div>
 </section>
 </div>
+</body>

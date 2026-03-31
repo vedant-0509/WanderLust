@@ -58,16 +58,23 @@ body::-webkit-scrollbar {
 .menu {
     display: flex;
     align-items: center;
-    padding: 0.5rem;
+    justify-content: center;
+    /* padding: 0.5rem; */
     border-radius: 50%;
     background: #f8f9fa;
     cursor: pointer;
     transition: all 0.2s;
+    height: 2.7rem;
+    width: 2.7rem;
+}
+
+.menu a{
+    text-decoration: none !important;
 }
 
 .menu:hover {
     background: #e9ecef;
-    transform: scale(1.05);
+    transform: scale(1.25);
 }
 
 .searchBox {
@@ -373,4 +380,8 @@ height: 100%;
 
 .star.active {
     color: gold
+}
+
+body.signup-page {
+  background-color: #FF5A5F !important;
 }

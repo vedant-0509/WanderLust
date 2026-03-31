@@ -6,6 +6,8 @@ const wrapAsync = require("../utils/wrapAsync.js");
 const ExpressError = require("../utils/ExpressError.js");
 const Listing = require("../models/listing.js");
 
+const {isLogin} = require("../middleware.js");
+
 
 // Validation Middleware
 const validateListing = (req, res, next) => {
@@ -53,7 +55,7 @@ router.post("/searchbox", wrapAsync(async (req, res) => {
 
 
 // NEW FORM
-router.get("/new", (req, res) => {
+router.get("/new", isLogin, (req, res) => {
   res.render("listing/new");
 });
 
@@ -89,7 +91,7 @@ router.get("/:id", wrapAsync(async (req, res) => {
 
 
 // EDIT FORM
-router.get("/:id/edit", wrapAsync(async (req, res) => {
+router.get("/:id/edit", isLogin, wrapAsync(async (req, res) => {
   let item = await Listing.findById(req.params.id);
   res.render("listing/edit", { item });
 }));
@@ -97,7 +99,7 @@ router.get("/:id/edit", wrapAsync(async (req, res) => {
 
 
 // UPDATE
-router.put("/:id/edit", validateListing, wrapAsync(async (req, res) => {
+router.put("/:id/edit", isLogin, validateListing, wrapAsync(async (req, res) => {
   let { id } = req.params;
   let data = req.body.listing;
 
@@ -116,7 +118,7 @@ router.put("/:id/edit", validateListing, wrapAsync(async (req, res) => {
 
 
 // DELETE
-router.delete("/:id", wrapAsync(async (req, res) => {
+router.delete("/:id", isLogin, wrapAsync(async (req, res) => {
   await Listing.findByIdAndDelete(req.params.id);
   req.flash("error", "List deleted");
   res.redirect("/allList");

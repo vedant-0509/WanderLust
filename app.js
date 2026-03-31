@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -15,6 +17,7 @@ const flash = require('connect-flash');
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
+require("./config/passport");
 
 
 
@@ -71,6 +74,7 @@ passport.deserializeUser(User.deserializeUser());
 app.use((req, res, next) => {
   res.locals.done = req.flash("done");
   res.locals.error = req.flash("error");
+  res.locals.isLoginUser = req.user;
   next();
 });
 
