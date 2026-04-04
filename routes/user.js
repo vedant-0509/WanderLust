@@ -3,6 +3,7 @@ const router = express.Router();
 const User = require("../models/user.js");
 const wrapAsync = require("../utils/wrapAsync.js");
 const passport = require("passport");
+const {saveRedirectUrl} = require("../middleware.js");
 
 router.get("/signup", (req, res) => {
     res.render("listing/user/signup", { bodyClass: "signup-page" });
@@ -34,7 +35,7 @@ router.get("/login", (req, res) => {
 });
 
 
-router.post("/login", async (req, res, next) => {
+router.post("/login", saveRedirectUrl, async (req, res, next) => {
     const { username } = req.body;
 
     const user = await User.findOne({ username });
@@ -56,7 +57,8 @@ router.post("/login", async (req, res, next) => {
             if (err) return next(err);
 
             req.flash("done", "Welcome!!");
-            return res.redirect("/allList");
+            let redirectUrl = res.locals.redirectUrl || "/allList"
+            return res.redirect(redirectUrl);
         });
     })(req, res, next);
 });
@@ -66,7 +68,7 @@ router.post("/login", async (req, res, next) => {
 router.get("/auth/google", passport.authenticate("google", { scope: ["profile", "email"] }));
 
 // Google callback
-router.get("/auth/google/callback", passport.authenticate("google", { failureRedirect: "/login", failureFlash: true }), (req, res) => {
+router.get("/auth/google/callback", saveRedirectUrl, passport.authenticate("google", { failureRedirect: "/login", failureFlash: true }), (req, res) => {
     req.flash("done", "Logged in with Google!");
     res.redirect("/allList");
   }

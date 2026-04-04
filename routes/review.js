@@ -1,24 +1,14 @@
 const express = require("express");
 const router = express.Router({mergeParams: true});
 
-const { reviewSchema } = require("../schema.js");
 const wrapAsync = require("../utils/wrapAsync.js");
 const ExpressError = require("../utils/ExpressError.js");
 const Listing = require("../models/listing.js");
 const Review = require("../models/review.js");
 
-const {isLogin} = require("../middleware.js");
+const {isLogin, validateReview} = require("../middleware.js");
 
-
-
-// Validation
-const validateReview = (req, res, next) => {
-  let { error } = reviewSchema.validate(req.body);
-  if (error) throw new ExpressError(400, error.message);
-  next();
-};
-
-
+const User = require("../models/user.js");
 
 // CREATE REVIEW
 router.post("/", isLogin, validateReview, wrapAsync(async (req, res) => {
@@ -28,6 +18,7 @@ router.post("/", isLogin, validateReview, wrapAsync(async (req, res) => {
   if (!item) throw new ExpressError(404, "Listing not found");
 
   let newReview = new Review(req.body.review);
+  newReview.author = req.user._id;
   await newReview.save();
 
   item.review.push(newReview);

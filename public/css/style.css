@@ -77,31 +77,42 @@ body::-webkit-scrollbar {
     transform: scale(1.25);
 }
 
-.searchBox {
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    border: .12rem solid rgba(0, 0, 0, .5);
-    border-radius: 1.5rem;
-    padding: 0.5rem;
-    background: transparent;
-    width: 19rem;
+.searchBox { 
+    display: flex; 
+    justify-content: start; 
+    align-items: center; 
+    border: .12rem solid rgba(0, 0, 0, .5); 
+    border-radius: 1.5rem; 
+    padding: 0.5rem; 
+    background: transparent; 
+    width: 19rem; 
+} 
+
+.searchBox:hover{ 
+    box-shadow: 0 0 7px rgba(255, 90, 95, .5); 
+    border: .12rem solid rgba(255, 0, 0, .25); 
+    transition: .3s ease-in-out;
+} 
+
+.searchBox:hover i {
+    color: #FF5A5F;
+    transition: .3s ease-in-out;
 }
 
-.searchBox i{
+.searchBox i{ 
     margin: .4rem .8rem;
-}
+} 
 
-.searchBox input{
-    border: none;
-    background-color: transparent;
-    width: 100%;
-}
+.searchBox input{ 
+    border: none; 
+    background-color: transparent; 
+    width: 100%; 
+} 
 
-.search-box:focus {
-    outline: none;
-    box-shadow: none;
-    border: none;
+.search-box:focus { 
+    outline: none; 
+    box-shadow: none; 
+    border: none; 
 }
 
 
@@ -384,4 +395,19 @@ height: 100%;
 
 body.signup-page {
   background-color: #FF5A5F !important;
+}
+
+.menu a{
+    color: black;
+}
+
+.login-logout{
+    display: flex; 
+    justify-content: start; 
+    align-items: center;
+}
+
+
+.login-logout:hover div a{
+    color: #FF5A5F;
 }

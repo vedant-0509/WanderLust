@@ -23,15 +23,15 @@
         </div>
     </div>
 
-    <div class="login-logout" style="display: flex; justify-content: start; align-items: center;">
+    <div class="login-logout">
         <% if(!isLoginUser){ %>
             <div class="menu">
-                <a href="/signup" style="color: black;"><i class="fa-solid fa-user"></i></a>
+                <a href="/signup"><i class="fa-solid fa-user"></i></a>
             </div>
         <% } %>
         <% if(isLoginUser){ %>
             <div class="menu" style="margin-left: .5rem;">
-                <a href="/logout" style="color: black;"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+                <a href="/logout"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
             </div>
         <% } %>
     </div>
