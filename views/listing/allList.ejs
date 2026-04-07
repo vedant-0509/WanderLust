@@ -4,10 +4,12 @@
 <div class="container py-4">
     <div class="header-allList">
         <h3>Search where you want to Go!</h3>
-        <form action="/allList/searchbox" method="post" class="searchBox">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input class="search-box" name="search" placeholder="Enter Location / Country / Title" required>
-        </form>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <form action="/allList/searchbox" method="post" class="searchBox">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input class="search-box" name="search" placeholder="Enter Location / Country / Title" required>
+            </form>
+        </div>
     </div>
     
     <div class="row row-cols-1 row-cols-md-3 row-cols-sm-1 g-4">

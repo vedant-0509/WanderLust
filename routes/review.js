@@ -1,12 +1,12 @@
 const express = require("express");
-const router = express.Router({mergeParams: true});
+const router = express.Router({ mergeParams: true });
 
 const wrapAsync = require("../utils/wrapAsync.js");
 const ExpressError = require("../utils/ExpressError.js");
 const Listing = require("../models/listing.js");
 const Review = require("../models/review.js");
 
-const {isLogin, validateReview} = require("../middleware.js");
+const { isLogin, validateReview, isReviewOwner } = require("../middleware.js");
 
 const User = require("../models/user.js");
 
@@ -30,14 +30,14 @@ router.post("/", isLogin, validateReview, wrapAsync(async (req, res) => {
 
 
 // DELETE REVIEW
-router.delete("/:reviewid", isLogin, wrapAsync(async (req, res) => {
-  let { id, reviewid } = req.params;
+router.delete("/:reviewId", isLogin, isReviewOwner, wrapAsync(async (req, res) => {
+  let { id, reviewId } = req.params;
 
   await Listing.findByIdAndUpdate(id, {
-    $pull: { review: reviewid }
+    $pull: { review: reviewId }
   });
 
-  await Review.findByIdAndDelete(reviewid);
+  await Review.findByIdAndDelete(reviewId);
   req.flash("error", "Review deleted");
   res.redirect(`/allList/${id}`);
 }));

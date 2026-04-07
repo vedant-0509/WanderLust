@@ -6,7 +6,9 @@ const wrapAsync = require("../utils/wrapAsync.js");
 const ExpressError = require("../utils/ExpressError.js");
 const Listing = require("../models/listing.js");
 
-const {isLogin, isOwner, validateListing} = require("../middleware.js");
+const { isLogin, isOwner, validateListing } = require("../middleware.js");
+const { path } = require("express/lib/application.js");
+const { populate } = require("../models/review.js");
 
 
 // INDEX (All Listings)
@@ -34,7 +36,7 @@ router.post("/searchbox", wrapAsync(async (req, res) => {
     ]
   });
 
-  if(result.length == 0){
+  if (result.length == 0) {
     req.flash("error", "No list found");
     return res.redirect("/allList");
   }
@@ -59,7 +61,7 @@ router.post("/new", validateListing, wrapAsync(async (req, res) => {
       url: "https://cdn.pixabay.com/photo/2021/12/12/20/00/play-6865967_1280.jpg"
     };
   }
-  
+
   let list = new Listing(data);
   list.owner = req.user._id;
   await list.save();
@@ -72,7 +74,14 @@ router.post("/new", validateListing, wrapAsync(async (req, res) => {
 // SHOW
 router.get("/:id", wrapAsync(async (req, res) => {
   let { id } = req.params;
-  let item = await Listing.findById(id).populate("review").populate("owner");
+  let item = await Listing.findById(id)
+    .populate({
+      path: "review",
+      populate: {
+        path: "author"
+      }
+    })
+    .populate("owner");
   if (!item) throw new ExpressError(404, "Listing not found");
   res.render("listing/item.ejs", { item });
 }));

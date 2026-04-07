@@ -1,113 +1,129 @@
 <% layout("/layouts/boiler") %>
-<div class="d-flex justify-content-center align-items-center" style="min-height: calc(100vh - 140px);">
-    <div class="card" style="max-width: 750px; width: 100%; margin-bottom: 1rem;">
-        <div class="card-header">
-            <h1><i><%= item.title %></i></h1>
-        </div>
-
-        <div class="card-body p-0" style="margin: 0rem 1rem !important;">
-            <img class="w-100" src="<%= item.image.url %>" alt="<%= item.title %>" style="height: 375px; object-fit: cover;">
-            <div style="padding: .2rem;">
-                <p class="fs-5 mb-3"><%= item.description %></p>
-                <p class="fs-5 mb-3"><%= item.owner.username %></p>
-                <p class="h4 text-success mb-2">₹ <%= item.price.toLocaleString("en-IN") %> / night</p>
-                <p class="mb-4"><i class="fas fa-map-marker-alt me-2 text-muted"></i><%= item.location %>, <%= item.country %></p>
-
-                <% if(isLoginUser && isLoginUser._id.equals(item.owner._id)) { %>
-                    <div class="d-flex gap-2 mb-4">
-                        <a href="/allList/<%= item._id %>/edit" class="btn btn-primary">Edit</a>
-                        <form action="/allList/<%= item._id%>?_method=DELETE" method="post">
-                            <button class="btn btn-danger">Delete</button>
-                        </form>
-                    </div>
-                <% } %>
-
+    <div class="d-flex justify-content-center align-items-center" style="min-height: calc(100vh - 140px);">
+        <div class="card" style="max-width: 750px; width: 100%; margin-bottom: 1rem;">
+            <div class="card-header">
+                <h1><i>
+                        <%= item.title %>
+                    </i></h1>
             </div>
-        </div>
 
-        <div class="hr"></div>
+            <div class="card-body p-0" style="margin: 0rem 1rem !important;">
+                <img class="w-100" src="<%= item.image.url %>" alt="<%= item.title %>"
+                    style="height: 375px; object-fit: cover;">
+                <div style="padding: .2rem;">
+                    <p class="fs-5 mb-3">
+                        <%= item.description %>
+                    </p>
+                    <p class="fs-5 mb-3">
+                        <%= item.owner.username %>
+                    </p>
+                    <p class="h4 text-success mb-2">₹ <%= item.price.toLocaleString("en-IN") %> / night</p>
+                    <p class="mb-4"><i class="fas fa-map-marker-alt me-2 text-muted"></i>
+                        <%= item.location %>, <%= item.country %>
+                    </p>
 
-        <div class="review" style="margin: 1rem;">
-            <div class="see-review">
-                <% for(let review of item.review) { %>
-                    <div class="see-review-card">
-
-                        <div>
-                            <% if(review.rating == 1){ %>
-                                <span class="star" style="color: gold;">★</span>
-                                <span class="star" >★</span>
-                                <span class="star" >★</span>
-                                <span class="star" >★</span>
-                                <span class="star" >★</span>
-                            <% } %>
-                            <% if(review.rating == 2){ %>
-                                <span class="star" style="color: gold;">★</span>
-                                <span class="star" style="color: gold;">★</span>
-                                <span class="star" >★</span>
-                                <span class="star" >★</span>
-                                <span class="star" >★</span>
-                            <% } %>
-                            <% if(review.rating == 3){ %>
-                                <span class="star" style="color: gold;">★</span>
-                                <span class="star" style="color: gold;">★</span>
-                                <span class="star" style="color: gold;">★</span>
-                                <span class="star" >★</span>
-                                <span class="star" >★</span>
-                            <% } %>
-                            <% if(review.rating == 4){ %>
-                                <span class="star" style="color: gold;">★</span>
-                                <span class="star" style="color: gold;">★</span>
-                                <span class="star" style="color: gold;">★</span>
-                                <span class="star" style="color: gold;">★</span>
-                                <span class="star" >★</span>
-                            <% } %>
-                            <% if(review.rating == 5){ %>
-                                <span class="star" style="color: gold;">★</span>
-                                <span class="star" style="color: gold;">★</span>
-                                <span class="star" style="color: gold;">★</span>
-                                <span class="star" style="color: gold;">★</span>
-                                <span class="star" style="color: gold;">★</span>
-                            <% } %>
-                            <div style="display: inline-block;">|</div>
-                            <div style="display: inline-block;">
-                                <%= review.date.toLocaleDateString("en-IN", {month: "short", year: "numeric"}) %>
-                            </div>
+                    <% if(isLoginUser && isLoginUser._id.equals(item.owner._id)) { %>
+                        <div class="d-flex gap-2 mb-4">
+                            <a href="/allList/<%= item._id %>/edit" class="btn btn-primary">Edit</a>
+                            <form action="/allList/<%= item._id%>?_method=DELETE" method="post">
+                                <button class="btn btn-danger">Delete</button>
+                            </form>
                         </div>
-                        <p><%= review.comment %></p>
-                        <form method="post" action="/listing/<%=item._id%>/review/<%=review._id%>?_method=DELETE">
-                            <button class="btn btn-dark btn-sm">Delete</button>
-                        </form>
-                    </div>
-                <% } %> 
-            </div>
-        </div>
+                        <% } %>
 
-         <% if(isLoginUser){ %>
-            <div class="hr"></div>
-            
-            <div class="review" style="margin: 0.5rem 1rem !important;">
-                <div class="add-review">
-                    <h4 style="margin-left: .2rem;">Add Comments</h4>
-                    <form action="/listing/<%= item._id %>/review" method="POST" class="form-label" novalidate class="needs-validation">
-                        <div>
-                            <label style="margin: .4rem .2rem;" class="form-label"><b>Comment</b></label>
-                            <textarea name="review[comment]" rows="5" class="form-control" required></textarea>
-                        </div>
-                        <div style="margin-top: .5rem;">
-                            <span onclick="gfg(1)" class="star" style=" font-size: 27px;">★</span>
-                            <span onclick="gfg(2)" class="star" style=" font-size: 27px;">★</span>
-                            <span onclick="gfg(3)" class="star" style=" font-size: 27px;">★</span>
-                            <span onclick="gfg(4)" class="star" style=" font-size: 27px;">★</span>
-                            <span onclick="gfg(5)" class="star" style=" font-size: 27px;">★</span>
-                            <h3 id="output">Rating is: 0/5</h3>
-
-                            <input type="hidden" name="review[rating]" id="ratingInput" required>
-                        </div>
-                        <button class="btn btn-dark" style="margin: .8rem 0rem;">Add Review</button>
-                    </form>
                 </div>
             </div>
-        <% } %>
 
+            <div class="hr"></div>
+
+            <div class="review" style="margin: 1rem;">
+                <div class="see-review">
+                    <% for(let review of item.review) { %>
+                        <div class="see-review-card">
+                            <div>
+                                <p style="margin-bottom: 0;">@<%= review.author.username %>
+                                </p>
+                            </div>
+                            <div>
+                                <% if(review.rating==1){ %>
+                                    <span class="star" style="color: gold;">★</span>
+                                    <span class="star">★</span>
+                                    <span class="star">★</span>
+                                    <span class="star">★</span>
+                                    <span class="star">★</span>
+                                    <% } %>
+                                        <% if(review.rating==2){ %>
+                                            <span class="star" style="color: gold;">★</span>
+                                            <span class="star" style="color: gold;">★</span>
+                                            <span class="star">★</span>
+                                            <span class="star">★</span>
+                                            <span class="star">★</span>
+                                            <% } %>
+                                                <% if(review.rating==3){ %>
+                                                    <span class="star" style="color: gold;">★</span>
+                                                    <span class="star" style="color: gold;">★</span>
+                                                    <span class="star" style="color: gold;">★</span>
+                                                    <span class="star">★</span>
+                                                    <span class="star">★</span>
+                                                    <% } %>
+                                                        <% if(review.rating==4){ %>
+                                                            <span class="star" style="color: gold;">★</span>
+                                                            <span class="star" style="color: gold;">★</span>
+                                                            <span class="star" style="color: gold;">★</span>
+                                                            <span class="star" style="color: gold;">★</span>
+                                                            <span class="star">★</span>
+                                                            <% } %>
+                                                                <% if(review.rating==5){ %>
+                                                                    <span class="star" style="color: gold;">★</span>
+                                                                    <span class="star" style="color: gold;">★</span>
+                                                                    <span class="star" style="color: gold;">★</span>
+                                                                    <span class="star" style="color: gold;">★</span>
+                                                                    <span class="star" style="color: gold;">★</span>
+                                                                    <% } %>
+                                                                        <div style="display: inline-block;">|</div>
+                                                                        <div style="display: inline-block;">
+                                                                            <%= review.date.toLocaleDateString("en-IN",
+                                                                                {month: "short" , year: "numeric" }) %>
+                                                                        </div>
+                            </div>
+                            <p>
+                                <%= review.comment %>
+                            </p>
+                            <form method="post" action="/listing/<%=item._id%>/review/<%=review._id%>?_method=DELETE">
+                                <button class="btn btn-dark btn-sm">Delete</button>
+                            </form>
+                        </div>
+                        <% } %>
+                </div>
+            </div>
+
+            <% if(isLoginUser){ %>
+                <div class="hr"></div>
+
+                <div class="review" style="margin: 0.5rem 1rem !important;">
+                    <div class="add-review">
+                        <h4 style="margin-left: .2rem;">Add Comments</h4>
+                        <form action="/listing/<%= item._id %>/review" method="POST" class="form-label" novalidate
+                            class="needs-validation">
+                            <div>
+                                <label style="margin: .4rem .2rem;" class="form-label"><b>Comment</b></label>
+                                <textarea name="review[comment]" rows="5" class="form-control" required></textarea>
+                            </div>
+                            <div style="margin-top: .5rem;">
+                                <span onclick="gfg(1)" class="star" style=" font-size: 27px;">★</span>
+                                <span onclick="gfg(2)" class="star" style=" font-size: 27px;">★</span>
+                                <span onclick="gfg(3)" class="star" style=" font-size: 27px;">★</span>
+                                <span onclick="gfg(4)" class="star" style=" font-size: 27px;">★</span>
+                                <span onclick="gfg(5)" class="star" style=" font-size: 27px;">★</span>
+                                <h3 id="output">Rating is: 0/5</h3>
+
+                                <input type="hidden" name="review[rating]" id="ratingInput" required>
+                            </div>
+                            <button class="btn btn-dark" style="margin: .8rem 0rem;">Add Review</button>
+                        </form>
+                    </div>
+                </div>
+                <% } %>
+
+        </div>
     </div>
-</div>

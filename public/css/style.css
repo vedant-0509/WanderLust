@@ -12,7 +12,7 @@ body {
 
 
 body::-webkit-scrollbar {
-  display: none;
+    display: none;
 }
 
 .container {
@@ -25,7 +25,7 @@ body::-webkit-scrollbar {
     align-items: center;
     padding: 1rem 2rem;
     background: white;
-    border-bottom: 1px solid rgba(0,0,0,0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     position: sticky;
     top: 0;
     z-index: 100;
@@ -33,7 +33,9 @@ body::-webkit-scrollbar {
     width: 100%;
 }
 
-.home a p:hover, .allList a p:hover, .addNewList a p:hover{
+.home a p:hover,
+.allList a p:hover,
+.addNewList a p:hover {
     text-decoration: dashed !important;
     cursor: pointer;
 }
@@ -68,7 +70,7 @@ body::-webkit-scrollbar {
     width: 2.7rem;
 }
 
-.menu a{
+.menu a {
     text-decoration: none !important;
 }
 
@@ -77,53 +79,55 @@ body::-webkit-scrollbar {
     transform: scale(1.25);
 }
 
-.searchBox { 
-    display: flex; 
-    justify-content: start; 
-    align-items: center; 
-    border: .12rem solid rgba(0, 0, 0, .5); 
-    border-radius: 1.5rem; 
-    padding: 0.5rem; 
-    background: transparent; 
-    width: 19rem; 
-} 
+.searchBox {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    border: .12rem solid rgba(0, 0, 0, .5);
+    border-radius: 1.5rem;
+    padding: 0.5rem;
+    background: transparent;
+    width: 19rem;
+}
 
-.searchBox:hover{ 
-    box-shadow: 0 0 7px rgba(255, 90, 95, .5); 
-    border: .12rem solid rgba(255, 0, 0, .25); 
+.searchBox:hover {
+    box-shadow: 0 0 7px rgba(255, 90, 95, .5);
+    border: .12rem solid rgba(255, 0, 0, .25);
     transition: .3s ease-in-out;
-} 
+}
 
 .searchBox:hover i {
     color: #FF5A5F;
     transition: .3s ease-in-out;
 }
 
-.searchBox i{ 
+.searchBox i {
     margin: .4rem .8rem;
-} 
+    width: .3rem;
+}
 
-.searchBox input{ 
-    border: none; 
-    background-color: transparent; 
-    width: 100%; 
-} 
+.searchBox input {
+    border: none;
+    background-color: transparent;
+    width: 100%;
+    margin-left: .5rem;
+}
 
-.search-box:focus { 
-    outline: none; 
-    box-shadow: none; 
-    border: none; 
+.search-box:focus {
+    outline: none;
+    box-shadow: none;
+    border: none;
 }
 
 
-.header-allList{
+.header-allList {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1.5rem;
 }
 
-.header-allList h3{
+.header-allList h3 {
     font-size: 2.5rem;
     margin-bottom: 0rem;
 }
@@ -131,12 +135,12 @@ body::-webkit-scrollbar {
 .card-div .card {
     transition: all 0.3s ease;
     border: none;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .card-div:hover .card {
     transform: translateY(-9px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
 }
 
 .card-img-top {
@@ -155,7 +159,7 @@ body::-webkit-scrollbar {
 }
 
 .review-card:hover {
-    box-shadow: 0 2px 10px rgba(0,123,255,0.15);
+    box-shadow: 0 2px 10px rgba(0, 123, 255, 0.15);
 }
 
 .form-control {
@@ -166,7 +170,7 @@ body::-webkit-scrollbar {
 
 .form-control:focus {
     border-color: #007bff;
-    box-shadow: 0 0 0 0.2rem rgba(0,123,255,0.25);
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
 
 .btn {
@@ -223,7 +227,8 @@ body::-webkit-scrollbar {
     gap: 0.3rem;
 }
 
-.allLogo-eng p:hover, .allText a:hover{
+.allLogo-eng p:hover,
+.allText a:hover {
     text-decoration: dashed !important;
     cursor: default;
     color: black;
@@ -236,22 +241,22 @@ body::-webkit-scrollbar {
 }
 
 
-.allLogo i:hover{
+.allLogo i:hover {
     scale: 1.2;
 }
 
 
-.card{
+.card {
     margin-top: 1rem !important;
     border: none !important;
 }
 
-.card-body img{
+.card-body img {
     border-radius: 1rem;
     margin: .5rem 0rem;
 }
 
-.card-header{
+.card-header {
     background-color: transparent !important;
     border: none !important;
     padding: 0rem !important;
@@ -259,55 +264,63 @@ body::-webkit-scrollbar {
     margin-bottom: 0rem !important;
 }
 
-.card{
+.card {
     border: 2px solid rgba(0, 0, 0, .5) !important;
     border-radius: 1rem !important;
 }
 
-.hr{
+.hr {
     border-bottom: 2px solid rgba(0, 0, 0, .5) !important;
 }
 
-.title input, .desc textarea, .image input{
+.title input,
+.desc textarea,
+.image input {
     margin-bottom: 1rem;
 }
 
-.flash{
+.flash {
     height: auto;
     padding: .7rem !important;
-    margin: 0 auto !important;  /* centers horizontally */
-    display: inline-block !important;   /* makes width depend on content */
-    width: fit-content !important;      /* shrink to text */
-    max-width: 100% !important;  
+    margin: 0 auto !important;
+    /* centers horizontally */
+    display: inline-block !important;
+    /* makes width depend on content */
+    width: fit-content !important;
+    /* shrink to text */
+    max-width: 100% !important;
     margin-top: 1rem !important;
 }
 
-.flash p{
+.flash p {
     margin: 0;
 }
 
 
 .divider:after,
 .divider:before {
-content: "";
-flex: 1;
-height: 1px;
-background: #eee;
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #eee;
 }
+
 .h-custom {
-height: calc(100% - 73px);
+    height: calc(100% - 73px);
 }
+
 @media (max-width: 450px) {
-.h-custom {
-height: 100%;
-}
+    .h-custom {
+        height: 100%;
+    }
 }
 
 .form-control:focus {
-  outline: none !important;
-  box-shadow: none !important;
-  border: .75px solid black !important;
-  border-color: transparent; /* optional: keep normal border */
+    outline: none !important;
+    box-shadow: none !important;
+    border: .75px solid black !important;
+    border-color: transparent;
+    /* optional: keep normal border */
 }
 
 
@@ -358,14 +371,14 @@ height: 100%;
 }
 
 
-.see-review{
+.see-review {
     height: auto;
     display: grid;
     grid-template-columns: 50% 50%;
     grid-template-rows: auto;
 }
 
-.see-review-card{
+.see-review-card {
     display: flex;
     flex-direction: column;
     justify-content: start;
@@ -374,7 +387,7 @@ height: 100%;
     padding: 0rem .5rem;
 }
 
-.see-review-card p{
+.see-review-card p {
     width: inherit;
     word-wrap: break-word;
     margin-top: -.2rem;
@@ -394,20 +407,20 @@ height: 100%;
 }
 
 body.signup-page {
-  background-color: #FF5A5F !important;
+    background-color: #FF5A5F !important;
 }
 
-.menu a{
+.menu a {
     color: black;
 }
 
-.login-logout{
-    display: flex; 
-    justify-content: start; 
+.login-logout {
+    display: flex;
+    justify-content: start;
     align-items: center;
 }
 
 
-.login-logout:hover div a{
+.login-logout:hover div a {
     color: #FF5A5F;
 }
