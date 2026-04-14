@@ -1,51 +1,59 @@
 <% layout("/layouts/boiler") %>
-<div class="row">
-    <div class="col-6 offset-3" style="margin-top: 1rem; margin-bottom: 1rem;padding: 0rem; border: 2px solid rgba(0, 0, 0, .5) !important; border-radius: 1rem !important;">
-        <h1 class="mb-4" style="margin: .5rem 1rem; ">Add New Listing</h1>
-        <form method="post" action="/allList/new" novalidate class="needs-validation">
-            <div class="mb-3 title" style="margin: 0rem 1rem !important;">
-                <label for="listing_title" class="form-label">Title</label>
-                <input type="text" class="form-control" id="listing_title" name="listing[title]" placeholder="Hot new listing" required minlength="3" maxlength="100">
-                <div class="invalid-feedback">Title must be 3-100 characters</div>
-            </div>
-    
-            <div class="mb-3 desc" style="margin: 0rem 1rem !important;">
-                <label for="listing_description" class="form-label">Description</label>
-                <textarea class="form-control" id="listing_description" name="listing[description]" rows="4" placeholder="Amazing getaway..." required minlength="10"></textarea>
-                <div class="invalid-feedback">Description must be at least 10 characters</div>
-            </div>
-
-            <div class="mb-3 image" style="margin: 0rem 1rem !important;">
-                <label for="listing_image_url" class="form-label">Image URL</label>
-                <input type="url" class="form-control" id="listing_image_url" name="listing[image][url]" placeholder="https://example.com/image.jpg">
-                <div class="invalid-feedback">Enter valid image URL</div>
-            </div>
-
-            <div class="row mb-4">
-                <div class="col-md-2 mb-3" style="margin: 0rem 1rem !important;">
-                    <label for="listing_price" class="form-label">Price (₹)</label>
-                    <input type="number" class="form-control" id="listing_price" name="listing[price]" placeholder="1000" required min="0" step="0.01">
-                    <div class="invalid-feedback">Enter valid price (≥ 0)</div>
+    <div class="row">
+        <div class="col-6 offset-3"
+            style="margin-top: 1rem; margin-bottom: 1rem;padding: 0rem; border: 2px solid rgba(0, 0, 0, .5) !important; border-radius: 1rem !important;">
+            <h1 class="mb-4" style="margin: .5rem 1rem; ">Add New Listing</h1>
+            <form method="post" action="/allList/new" novalidate class="needs-validation" enctype="multipart/form-data">
+                <div class="mb-3 title" style="margin: 0rem 1rem !important;">
+                    <label for="listing_title" class="form-label">Title</label>
+                    <input type="text" class="form-control" id="listing_title" name="listing[title]"
+                        placeholder="Hot new listing" required minlength="3" maxlength="100">
+                    <div class="invalid-feedback">Title must be 3-100 characters</div>
                 </div>
-        
-                <div class="col-md-3 mb-3" style="margin: 0rem 1rem !important;">
-                    <label for="listing_location" class="form-label">Location</label>
-                    <input type="text" class="form-control" id="listing_location" name="listing[location]" placeholder="Mumbai" required>
-                    <div class="invalid-feedback">Enter location</div>
-                </div>
-    
-                <div class="col-md-3 mb-3" style="margin: 0rem 1rem !important;">
-                    <label for="listing_country" class="form-label">Country</label>
-                    <input type="text" class="form-control" id="listing_country" name="listing[country]" placeholder="India" required>
-                    <div class="invalid-feedback">Enter country</div>
-                </div>
-            </div>
 
-            <div class="d-flex gap-2" style="margin: 1rem 1rem !important;">
-                <button type="submit" class="btn btn-success btn-md">Create</button>
-                <a href="/allList" class="btn btn-danger">Cancel</a>
-            </div>
-            
-        </form>
+                <div class="mb-3 desc" style="margin: 0rem 1rem !important;">
+                    <label for="listing_description" class="form-label">Description</label>
+                    <textarea class="form-control" id="listing_description" name="listing[description]" rows="4"
+                        placeholder="Amazing getaway..." required minlength="10"></textarea>
+                    <div class="invalid-feedback">Description must be at least 10 characters</div>
+                </div>
+
+
+                <div class="mb-3 image" style="margin: 0rem 1rem !important;">
+                    <label for="listing_image_url" class="form-label">Image URL</label>
+                    <input type="file" class="form-control" id="listing_image_url" name="image"
+                        placeholder="https://example.com/image.jpg" required>
+                    <div class="invalid-feedback">Enter valid image</div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-md-2 mb-3" style="margin: 0rem 1rem !important;">
+                        <label for="listing_price" class="form-label">Price (₹)</label>
+                        <input type="number" class="form-control" id="listing_price" name="listing[price]"
+                            placeholder="1000" required min="0" step="0.01">
+                        <div class="invalid-feedback">Enter valid price (≥ 0)</div>
+                    </div>
+
+                    <div class="col-md-3 mb-3" style="margin: 0rem 1rem !important;">
+                        <label for="listing_location" class="form-label">Location</label>
+                        <input type="text" class="form-control" id="listing_location" name="listing[location]"
+                            placeholder="Mumbai" required>
+                        <div class="invalid-feedback">Enter location</div>
+                    </div>
+
+                    <div class="col-md-3 mb-3" style="margin: 0rem 1rem !important;">
+                        <label for="listing_country" class="form-label">Country</label>
+                        <input type="text" class="form-control" id="listing_country" name="listing[country]"
+                            placeholder="India" required>
+                        <div class="invalid-feedback">Enter country</div>
+                    </div>
+                </div>
+
+                <div class="d-flex gap-2" style="margin: 1rem 1rem !important;">
+                    <button type="submit" class="btn btn-success btn-md">Create</button>
+                    <a href="/allList" class="btn btn-danger">Cancel</a>
+                </div>
+
+            </form>
+        </div>
     </div>
-</div>

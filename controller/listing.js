@@ -41,15 +41,13 @@ module.exports.newForm = (req, res) => {
 
 module.exports.createListing = async (req, res) => {
     let data = req.body.listing;
-
-    if (!data.image || !data.image.url) {
-        data.image = {
-            url: "https://cdn.pixabay.com/photo/2021/12/12/20/00/play-6865967_1280.jpg"
-        };
-    }
-
     let list = new Listing(data);
     list.owner = req.user._id;
+
+    let url = req.file.path;
+    let filename = req.file.filename;
+    list.image = { url, filename };
+
     await list.save();
     req.flash("done", "New list Added");
     res.redirect("/allList");
@@ -71,7 +69,8 @@ module.exports.showListing = async (req, res) => {
 
 module.exports.editForm = async (req, res) => {
     let item = await Listing.findById(req.params.id);
-    res.render("listing/edit", { item });
+    let url = item.image.url;
+    res.render("listing/edit", { item, url });
 }
 
 module.exports.updateListing = async (req, res) => {
@@ -81,8 +80,14 @@ module.exports.updateListing = async (req, res) => {
     let existing = await Listing.findById(id);
     if (!existing) throw new ExpressError(404, "Listing not found");
 
-    if (!data.image || !data.image.url) {
-        data.image = { url: existing.image.url };
+    // Handle image update
+    if (req.file) {
+        let url = req.file.path;
+        let filename = req.file.filename;
+        data.image = { url, filename };
+    } else {
+        // Preserve existing image
+        data.image = existing.image;
     }
 
     await Listing.findByIdAndUpdate(id, data, { runValidators: true });

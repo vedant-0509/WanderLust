@@ -42,8 +42,8 @@ async function main() {
   await mongoose.connect(MONGO_URL);
 }
 main()
-.then(() => console.log("Connected to DB"))
-.catch(err => console.log(err));
+  .then(() => console.log("Connected to DB"))
+  .catch(err => console.log(err));
 
 //session parameters
 const sessionParameter = {
@@ -53,7 +53,7 @@ const sessionParameter = {
   cookie: {
     expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
     maxAge: 7 * 24 * 60 * 60 * 1000,
-    httpOnly: true, 
+    httpOnly: true,
   }
 }
 

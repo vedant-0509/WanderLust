@@ -1,7 +1,8 @@
 <div class="navCont">
     <div class="logo">
         <a href="/allList">
-            <img class="logoimg" src="https://assets.streamlinehq.com/image/private/w_300,h_300,ar_1/f_auto/v1/icons/1/airbnb-9xpw4kf7zr9850h17qznf.png/airbnb-4rfqv9z0up9auj6x43g07v.png?_a=DATAiZAAZAA0">
+            <img class="logoimg"
+                src="https://assets.streamlinehq.com/image/private/w_300,h_300,ar_1/f_auto/v1/icons/1/airbnb-9xpw4kf7zr9850h17qznf.png/airbnb-4rfqv9z0up9auj6x43g07v.png?_a=DATAiZAAZAA0">
         </a>
     </div>
 
@@ -25,15 +26,18 @@
 
     <div class="login-logout">
         <% if(!isLoginUser){ %>
-            <div class="menu">
-                <a href="/signup"><i class="fa-solid fa-user"></i></a>
-            </div>
-        <% } %>
-        <% if(isLoginUser){ %>
-            <div class="menu" style="margin-left: .5rem;">
-                <a href="/logout"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
-            </div>
-        <% } %>
+            <a href="/signup" style="text-decoration: none;">
+                <div class="menu">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+            </a>
+            <% } %>
+                <% if(isLoginUser){ %>
+                    <a href="/logout" style="text-decoration: none;">
+                        <div class="menu" style="margin-left: .5rem;">
+                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                        </div>
+                    </a>
+                    <% } %>
     </div>
-    
 </div>

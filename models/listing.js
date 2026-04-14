@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const Review = require("./review.js");
+const { required } = require("joi");
 
 
 const listingSchema = new Schema({
@@ -15,6 +16,9 @@ const listingSchema = new Schema({
         url: {
             type: String,
             default: "https://cdn.pixabay.com/photo/2021/12/12/20/00/play-6865967_1280.jpg"
+        },
+        filename: {
+            type: String,
         }
     },
     price: {
@@ -35,13 +39,24 @@ const listingSchema = new Schema({
     owner: {
         type: Schema.Types.ObjectId,
         ref: "User"
+    },
+    geometry: {
+        type: {
+            type: String,
+            enum: ["Point"],
+            required: true
+        },
+        coordinates: {
+            type: [Number],
+            required: true
+        }
     }
 });
 
 
-listingSchema.post("findOneAndDelete", async(listing) => {
-    if(listing){
-        await Review.deleteMany({_id: { $in: listing.review}});
+listingSchema.post("findOneAndDelete", async (listing) => {
+    if (listing) {
+        await Review.deleteMany({ _id: { $in: listing.review } });
     }
 });
 
