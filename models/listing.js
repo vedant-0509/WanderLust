@@ -47,7 +47,7 @@ const listingSchema = new Schema({
             required: true
         },
         coordinates: {
-            type: [Number],
+            type: [Number], // [lng, lat]
             required: true
         }
     }
