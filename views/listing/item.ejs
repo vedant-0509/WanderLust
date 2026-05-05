@@ -136,4 +136,17 @@
         </div>
     </div>
 
+
+
+    <script>
+        // 1. Fixed: No space between % and -
+        // 2. Added check: If geometry doesn't exist, use default coords [77.2090, 28.6139]
+        const listingCoordinates = <% - item.geometry && item.geometry.coordinates ? JSON.stringify(item.geometry.coordinates) : "[77.2090, 28.6139]" %>
+
+        // 3. MapTiler Key
+        const mapToken = "<%= process.env.MAPTILER_API_KEY %>";
+    </script>
+
+    <div id="map" style="height: 300px;"></div>
+
     <script src="/js/map.js"></script>

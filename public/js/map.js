@@ -1,5 +1,3 @@
-// public/js/map.js
-
 window.addEventListener("load", function () {
     const mapDiv = document.getElementById("map");
     if (!mapDiv) return;
@@ -30,3 +28,22 @@ window.addEventListener("load", function () {
         )
         .addTo(map);
 });
+
+// public/js/map.js
+maptilersdk.config.apiKey = mapToken; // Use the token from EJS
+
+const map = new maptilersdk.Map({
+    container: 'map',
+    style: maptilersdk.MapStyle.STREETS,
+    center: listingCoordinates, // Use coordinates from DB
+    zoom: 12
+});
+
+// Add the marker
+new maptilersdk.Marker({ color: "red" })
+    .setLngLat(listingCoordinates)
+    .setPopup(
+        new maptilersdk.Popup({ offset: 25 })
+            .setHTML(`<h4>${listingLocation}</h4><p>Exact location provided after booking</p>`)
+    )
+    .addTo(map);

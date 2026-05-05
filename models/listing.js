@@ -44,11 +44,11 @@ const listingSchema = new Schema({
         type: {
             type: String,
             enum: ["Point"],
-            required: true
+            //required: true
         },
         coordinates: {
             type: [Number], // [lng, lat]
-            required: true
+            //required: true
         }
     }
 });
