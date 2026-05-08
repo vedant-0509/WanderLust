@@ -44,13 +44,30 @@ const listingSchema = new Schema({
         type: {
             type: String,
             enum: ["Point"],
-            //required: true
+            default: "Point",
+            required: true
         },
         coordinates: {
             type: [Number], // [lng, lat]
-            //required: true
+            required: true
         }
-    }
+    },
+    filter: {
+   type: String,
+   enum: [
+      "Trending",
+      "Room",
+      "Mountain",
+      "Castle",
+      "Pool",
+      "Boat",
+      "City",
+      "Camping",
+      "Farms",
+      "Arctic",
+   ],
+   default: "Trending"
+}
 });
 
 

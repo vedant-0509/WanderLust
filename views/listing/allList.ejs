@@ -9,15 +9,23 @@
     <div class="container py-4">
         <div class="header-allList">
             <h3>Search where you want to Go!</h3>
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <form action="/allList/searchbox" method="post" class="searchBox">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <input class="search-box" name="search" placeholder="Enter Location / Country / Title" required>
-                </form>
+            <div id="wrap">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div class="form-check form-switch searchBox-tax" id="form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                        <label class="form-check-label" for="flexSwitchCheckDefault">Amount after tax</label>
+                    </div>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-left: 1rem;">
+                    <form action="/allList/searchbox" method="post" class="searchBox">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input class="search-box" name="search" placeholder="Enter Location / Country / Title" required>
+                    </form>
+                </div>
             </div>
         </div>
 
-        <div class="row row-cols-1 row-cols-md-3 row-cols-sm-1 g-4">
+        <div class="row row-cols-1 row-cols-md-3 row-cols-sm-1 g-4" style="margin-bottom: 1.75rem;">
             <% for(let list of lists) { %>
                 <div class="col card-div">
                     <a href="/allList/<%= list._id %>" class="text-decoration-none text-dark">
@@ -28,14 +36,17 @@
                                 <h5 class="card-title"><b>
                                         <%= list.title %>
                                     </b></h5>
-                                <p class="card-text text-muted">
-                                    <%= list.location %>, <%= list.country %>
-                                </p>
-                                <p class="card-text">&#8377; <%= list.price %> / night</p>
+                                <p class="card-text text-muted"><%= list.location %>, <%= list.country %></p>
+                                <p style="margin-top: -.75rem;" class="card-text text-muted"><i style="margin-right: .25rem;" class="fa-solid fa-filter"></i><%= list.filter %></p>
+                                <p class="card-text original-price">&#8377; <%= list.price %> / night</p>
+                                <p class="tax-para">&#8377; <%= (list.price * 1.18).toFixed(2) %> / night</p>
                             </div>
                         </div>
                     </a>
                 </div>
-                <% } %>
+            <% } %>
         </div>
     </div>
+
+
+  <script src="/js/tax-script.js"></script>

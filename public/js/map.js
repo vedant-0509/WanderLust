@@ -1,49 +1,49 @@
-window.addEventListener("load", function () {
-    const mapDiv = document.getElementById("map");
-    if (!mapDiv) return;
+document.addEventListener("DOMContentLoaded", () => {
 
-    const key = "yMgpqYhUEzM34PVZvagy";
-    maptilersdk.config.apiKey = key;
+    const fallback = [19.0760, 72.8777];
+
+    let coords = listingCoordinates;
+
+    let listingLatLng;
+
+    
+    if (
+        Array.isArray(coords) &&
+        coords.length === 2 &&
+        typeof coords[0] === "number" &&
+        typeof coords[1] === "number"
+    ) {
+        // convert [lng, lat] → [lat, lng]
+        listingLatLng = [coords[1], coords[0]];
+    } else {
+        console.warn("Invalid or missing coordinates, using fallback");
+        listingLatLng = fallback;
+    }
+
+    const map = L.map('map').setView(listingLatLng, 12);
+
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
 
 
-    // ✅ Default fallback (Delhi)
-    let defaultCoords = [77.1025, 28.7041];
-
-    // ✅ Get listing coordinates (if available from EJS)
-    let listingCoords = window.listingCoordinates || defaultCoords;
-
-    // ✅ Initialize map
-    const map = new maptilersdk.Map({
-        container: 'map',
-        style: maptilersdk.MapStyle.STREETS,
-        center: listingCoords,
-        zoom: 13
+    const redIcon = L.icon({
+        iconUrl: "https://cdn-icons-png.flaticon.com/512/684/684908.png",
+        iconSize: [35, 35],
+        iconAnchor: [17, 35],
+        popupAnchor: [0, -30]
     });
 
-    // 📍 Add listing marker
-    new maptilersdk.Marker({ color: "blue" })
-        .setLngLat(listingCoords)
-        .setPopup(
-            new maptilersdk.Popup().setText("Listing Location 📍")
-        )
-        .addTo(map);
+    L.marker(listingLatLng, { icon: redIcon })
+        .addTo(map)
+        .bindPopup(`<b>${listingTitle}</b>`)
+        .openPopup();
+
+
+    L.control.scale({
+        position: "bottomleft",
+        metric: true,
+        imperial: false
+    }).addTo(map);
 });
-
-// public/js/map.js
-maptilersdk.config.apiKey = mapToken; // Use the token from EJS
-
-const map = new maptilersdk.Map({
-    container: 'map',
-    style: maptilersdk.MapStyle.STREETS,
-    center: listingCoordinates, // Use coordinates from DB
-    zoom: 12
-});
-
-// Add the marker
-new maptilersdk.Marker({ color: "red" })
-    .setLngLat(listingCoordinates)
-    .setPopup(
-        new maptilersdk.Popup({ offset: 25 })
-            .setHTML(`<h4>${listingLocation}</h4><p>Exact location provided after booking</p>`)
-    )
-    .addTo(map);

@@ -1,4 +1,10 @@
 <% layout("/layouts/boiler") %>
+    <script>
+        const mapToken = "<%= process.env.MAPTILER_API_KEY %>";
+        const listingCoordinates = <%- JSON.stringify(item?.geometry?.coordinates || [72.8777, 19.0760]) %>;
+        const listingGeo = <%- JSON.stringify(item.geometry) %>;
+        const listingLocation = "<%= item.location %>";
+    </script>
 
     <div class="loader-wrapper">
         <span class="loader">
@@ -9,25 +15,23 @@
     <div class="d-flex justify-content-center align-items-center" style="min-height: calc(100vh - 140px);">
         <div class="card" style="max-width: 750px; width: 100%; margin-bottom: 1rem;">
             <div class="card-header">
-                <h1><i>
-                        <%= item.title %>
-                    </i></h1>
+                <h1>
+                    <i><%= item.title %></i>
+                </h1>
             </div>
 
             <div class="card-body p-0" style="margin: 0rem 1rem !important;">
-                <img class="w-100" src="<%= item.image.url %>" alt="<%= item.title %>"
-                    style="height: 375px; object-fit: cover;">
+                <img class="w-100" src="<%= item.image.url %>" alt="<%= item.title %>"style="height: 375px; object-fit: cover;">
                 <div style="padding: .2rem;">
-                    <p class="fs-5 mb-3">
-                        <%= item.description %>
-                    </p>
-                    <p class="fs-5 mb-3">
-                        <%= item.owner.username %>
-                    </p>
+                    <p class="fs-5 mb-3"><%= item.description %></p>
+                    
+                    <p class="fs-5 mb-3"><%= item.owner.username %></p>
+
                     <p class="h4 text-success mb-2">₹ <%= item.price.toLocaleString("en-IN") %> / night</p>
-                    <p class="mb-4"><i class="fas fa-map-marker-alt me-2 text-muted"></i>
-                        <%= item.location %>, <%= item.country %>
-                    </p>
+                    
+                    <p class="mb-4"><i class="fas fa-map-marker-alt me-2 text-muted"></i><%= item.location %>, <%= item.country %></p>
+                    
+                    <p style="margin-top: -1.24rem;" class="mb-4"><i style="margin-right: .25rem;" class="fa-solid fa-filter"></i><%= item.filter %></p>
 
                     <% if(isLoginUser && isLoginUser._id.equals(item.owner._id)) { %>
                         <div class="d-flex gap-2 mb-4">
@@ -36,8 +40,7 @@
                                 <button class="btn btn-danger">Delete</button>
                             </form>
                         </div>
-                        <% } %>
-
+                    <% } %>
                 </div>
             </div>
 
@@ -50,8 +53,7 @@
                     <% for(let review of item.review) { %>
                         <div class="see-review-card">
                             <div>
-                                <p style="margin-bottom: 0;">@<%= review.author.username %>
-                                </p>
+                                <p style="margin-bottom: 0;">@<%= review.author.username %></p>
                             </div>
                             <div>
                                 <% if(review.rating==1){ %>
@@ -60,49 +62,46 @@
                                     <span class="star">★</span>
                                     <span class="star">★</span>
                                     <span class="star">★</span>
-                                    <% } %>
-                                        <% if(review.rating==2){ %>
-                                            <span class="star" style="color: gold;">★</span>
-                                            <span class="star" style="color: gold;">★</span>
-                                            <span class="star">★</span>
-                                            <span class="star">★</span>
-                                            <span class="star">★</span>
-                                            <% } %>
-                                                <% if(review.rating==3){ %>
-                                                    <span class="star" style="color: gold;">★</span>
-                                                    <span class="star" style="color: gold;">★</span>
-                                                    <span class="star" style="color: gold;">★</span>
-                                                    <span class="star">★</span>
-                                                    <span class="star">★</span>
-                                                    <% } %>
-                                                        <% if(review.rating==4){ %>
-                                                            <span class="star" style="color: gold;">★</span>
-                                                            <span class="star" style="color: gold;">★</span>
-                                                            <span class="star" style="color: gold;">★</span>
-                                                            <span class="star" style="color: gold;">★</span>
-                                                            <span class="star">★</span>
-                                                            <% } %>
-                                                                <% if(review.rating==5){ %>
-                                                                    <span class="star" style="color: gold;">★</span>
-                                                                    <span class="star" style="color: gold;">★</span>
-                                                                    <span class="star" style="color: gold;">★</span>
-                                                                    <span class="star" style="color: gold;">★</span>
-                                                                    <span class="star" style="color: gold;">★</span>
-                                                                    <% } %>
-                                                                        <div style="display: inline-block;">|</div>
-                                                                        <div style="display: inline-block;">
-                                                                            <%= review.date.toLocaleDateString("en-IN",
-                                                                                {month: "short" , year: "numeric" }) %>
-                                                                        </div>
+                                <% } %>
+                                <% if(review.rating==2){ %>
+                                    <span class="star" style="color: gold;">★</span>
+                                    <span class="star" style="color: gold;">★</span>
+                                    <span class="star">★</span>
+                                    <span class="star">★</span>
+                                    <span class="star">★</span>
+                                <% } %>
+                                <% if(review.rating==3){ %>
+                                    <span class="star" style="color: gold;">★</span>
+                                    <span class="star" style="color: gold;">★</span>
+                                    <span class="star" style="color: gold;">★</span>
+                                    <span class="star">★</span>
+                                    <span class="star">★</span>
+                                <% } %>
+                                <% if(review.rating==4){ %>
+                                    <span class="star" style="color: gold;">★</span>
+                                    <span class="star" style="color: gold;">★</span>
+                                    <span class="star" style="color: gold;">★</span>
+                                    <span class="star" style="color: gold;">★</span>
+                                    <span class="star">★</span>
+                                <% } %>
+                                <% if(review.rating==5){ %>
+                                    <span class="star" style="color: gold;">★</span>
+                                    <span class="star" style="color: gold;">★</span>
+                                    <span class="star" style="color: gold;">★</span>
+                                    <span class="star" style="color: gold;">★</span>
+                                    <span class="star" style="color: gold;">★</span>
+                                <% } %>
+                                <div style="display: inline-block;">|</div>
+                                <div style="display: inline-block;">
+                                   <%= review.date.toLocaleDateString("en-IN",{month: "short" , year: "numeric" }) %>
+                                </div>
                             </div>
-                            <p>
-                                <%= review.comment %>
-                            </p>
+                            <p><%= review.comment %></p>
                             <form method="post" action="/listing/<%=item._id%>/review/<%=review._id%>?_method=DELETE">
                                 <button class="btn btn-dark btn-sm">Delete</button>
                             </form>
                         </div>
-                        <% } %>
+                    <% } %>
                 </div>
             </div>
 
@@ -112,8 +111,7 @@
                 <div class="review" style="margin: 0.5rem 1rem !important;">
                     <div class="add-review">
                         <h4 style="margin-left: .2rem;">Add Comments</h4>
-                        <form action="/listing/<%= item._id %>/review" method="POST" class="form-label" novalidate
-                            class="needs-validation">
+                        <form action="/listing/<%= item._id %>/review" method="POST" class="form-label" novalidate class="needs-validation">
                             <div>
                                 <label style="margin: .4rem .2rem;" class="form-label"><b>Comment</b></label>
                                 <textarea name="review[comment]" rows="5" class="form-control" required></textarea>
@@ -132,21 +130,10 @@
                         </form>
                     </div>
                 </div>
-                <% } %>
+            <% } %>
         </div>
     </div>
 
 
 
-    <script>
-        // 1. Fixed: No space between % and -
-        // 2. Added check: If geometry doesn't exist, use default coords [77.2090, 28.6139]
-        const listingCoordinates = <% - item.geometry && item.geometry.coordinates ? JSON.stringify(item.geometry.coordinates) : "[77.2090, 28.6139]" %>
-
-        // 3. MapTiler Key
-        const mapToken = "<%= process.env.MAPTILER_API_KEY %>";
-    </script>
-
-    <div id="map" style="height: 300px;"></div>
-
-    <script src="/js/map.js"></script>
+<script src="/js/map.js"></script>

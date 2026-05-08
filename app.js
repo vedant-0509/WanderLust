@@ -12,6 +12,7 @@ const reviewRoutes = require("./routes/review.js");
 const userRoutes = require("./routes/user.js");
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const MongoStore = require('connect-mongo').default;
 const flash = require('connect-flash');
 
 const passport = require("passport");
@@ -37,17 +38,31 @@ app.use(flash());
 
 
 // DB Connection
-const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
+//const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
+const dburl = process.env.ATLAS_DB;
+
+
 async function main() {
-  await mongoose.connect(MONGO_URL);
+  await mongoose.connect(dburl);
 }
 main()
   .then(() => console.log("Connected to DB"))
   .catch(err => console.log(err));
 
+
+
+const store = MongoStore.create({
+  mongoUrl: dburl,
+  crypto: {
+    secret: process.env.SECRET,
+  },
+  touchAfter: 24 * 3600,
+});
+
 //session parameters
 const sessionParameter = {
-  secret: 'codesecrete',
+  store,
+  secret: process.env.SECRET,
   resave: false,
   saveUninitialized: true,
   cookie: {
@@ -75,7 +90,7 @@ app.use((req, res, next) => {
   res.locals.done = req.flash("done");
   res.locals.error = req.flash("error");
   res.locals.isLoginUser = req.user;
-  next();
+  next(); 
 });
 
 

@@ -9,12 +9,19 @@ const multer = require('multer');
 const { storage } = require("../cloudConfig.js");
 const upload = multer({ storage });
 
+
+//privacy and terms
+router.get("/privacy", wrapAsync(controller.privacy));
+
 // INDEX (All Listings)
 router.get("/", wrapAsync(controller.index));
 
 
 // SEARCH
 router.post("/searchbox", wrapAsync(controller.searchBar));
+
+//SEARCH FILTER
+router.post("/searchFilter", wrapAsync(controller.searchFilter));
 
 
 // NEW FORM

@@ -1,43 +1,114 @@
 <div class="navCont">
     <div class="logo">
         <a href="/allList">
-            <img class="logoimg"
-                src="https://assets.streamlinehq.com/image/private/w_300,h_300,ar_1/f_auto/v1/icons/1/airbnb-9xpw4kf7zr9850h17qznf.png/airbnb-4rfqv9z0up9auj6x43g07v.png?_a=DATAiZAAZAA0">
+            <img class="logoimg" src="https://assets.streamlinehq.com/image/private/w_300,h_300,ar_1/f_auto/v1/icons/1/airbnb-9xpw4kf7zr9850h17qznf.png/airbnb-4rfqv9z0up9auj6x43g07v.png?_a=DATAiZAAZAA0">
         </a>
     </div>
 
-    <div class="searchBar">
-        <div class="home">
-            <a href="/allList">
-                <p style="font-size: 1.27rem; margin: 1rem 0rem;">Home</p>
-            </a>
-        </div>
-        <div class="allList">
-            <a href="/allList">
-                <p style="font-size: 1.27rem; margin: 1rem 0rem;">All List</p>
-            </a>
-        </div>
-        <div class="addNewList">
-            <a href="/allList/new">
-                <p style="font-size: 1.27rem; margin: 1rem 0rem;">Add new List</p>
-            </a>
-        </div>
+
+    <div class="filters">
+        
+        <form action="/allList/searchFilter" method="post">
+            <button style="border: none; background: transparent;" type="submit" name="filterName" value="Trending" class="filters-subdiv">
+                <i class="fa-solid fa-fire"></i>
+                <p>Trending</p>
+            </button>
+        </form>
+
+        <form action="/allList/searchFilter" method="post">
+            <button style="border: none; background: transparent;" type="submit" name="filterName" value="Boat" class="filters-subdiv">
+                <i class="fa-solid fa-sailboat"></i>
+                <p>Boat</p>
+            </button>
+        </form>
+
+        <form action="/allList/searchFilter" method="post">
+            <button style="border: none; background: transparent;" type="submit" name="filterName" value="Room" class="filters-subdiv">
+                <i class="fa-solid fa-bed"></i>
+                <p>Room</p>
+            </button>
+        </form>
+
+
+        <form action="/allList/searchFilter" method="post">
+            <button style="border: none; background: transparent;" type="submit" name="filterName" value="Arctic" class="filters-subdiv">
+                <i class="fa-regular fa-snowflake"></i>
+                <p>Arctic</p>
+            </button>
+        </form>
+
+        <form action="/allList/searchFilter" method="post">
+            <button style="border: none; background: transparent;" type="submit" name="filterName" value="Farms" class="filters-subdiv">
+                <i class="fa-solid fa-cow"></i>
+                <p>Farm</p>
+            </button>
+        </form>
+
+        <form action="/allList/searchFilter" method="post">
+            <button style="border: none; background: transparent;" type="submit" name="filterName" value="Camping" class="filters-subdiv">
+                <i class="fa-solid fa-tents"></i>
+                <p>Camping</p>
+            </button>
+        </form>
+
+        <form action="/allList/searchFilter" method="post">
+            <button style="border: none; background: transparent;" type="submit" name="filterName" value="City" class="filters-subdiv">
+                <i class="fa-solid fa-city"></i>
+                <p>City</p>
+            </button>
+        </form>
+        <form action="/allList/searchFilter" method="post">
+            <button style="border: none; background: transparent;" type="submit" name="filterName" value="Pool" class="filters-subdiv">
+                <i class="fa-solid fa-person-swimming"></i>
+                <p>Pool</p>
+            </button>
+        </form>
+        <form action="/allList/searchFilter" method="post">
+            <button style="border: none; background: transparent;" type="submit" name="filterName" value="Castle" class="filters-subdiv">
+                <i class="fa-brands fa-fort-awesome"></i>
+                <p>Castle</p>
+            </button>
+        </form>
+
+        <form action="/allList/searchFilter" method="post">
+            <button style="border: none; background: transparent;" type="submit" name="filterName" value="Mountain" class="filters-subdiv">
+                <i class="fa-solid fa-mountain"></i>
+                <p>Mountain</p>
+            </button>
+        </form>
     </div>
 
+
     <div class="login-logout">
-        <% if(!isLoginUser){ %>
-            <a href="/signup" style="text-decoration: none;">
+        <div class="home" style="margin-left: .75rem;">
+            <a href="/alllist" style="text-decoration: none;">
                 <div class="menu">
-                    <i class="fa-solid fa-user"></i>
+                    <i class="fa-solid fa-house-chimney"></i>
                 </div>
             </a>
+        </div>
+        <div class="addNewList" style="margin-left: .75rem;">
+            <a href="/allList/new" style="text-decoration: none;">
+                <div class="menu">
+                    <i class="fa-solid fa-plus"></i>
+                </div>
+            </a>
+        </div>
+        <div  style="margin-left: .75rem;">
+            <% if(!isLoginUser){ %>
+                <a href="/signup" style="text-decoration: none;">
+                    <div class="menu">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                </a>
             <% } %>
-                <% if(isLoginUser){ %>
-                    <a href="/logout" style="text-decoration: none;">
-                        <div class="menu" style="margin-left: .5rem;">
-                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                        </div>
-                    </a>
-                    <% } %>
+            <% if(isLoginUser){ %>
+                <a href="/logout" style="text-decoration: none;">
+                    <div class="menu">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    </div>
+                </a>
+            <% } %>
+        </div>
     </div>
 </div>

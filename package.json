@@ -1,4 +1,7 @@
 {
+  "engines": {
+    "node":"25.8.0"
+  },
   "name": "wanderlust",
   "version": "1.0.0",
   "description": "Travel listing app",
@@ -22,6 +25,7 @@
     "axios": "^1.15.0",
     "cloudinary": "^1.41.0",
     "connect-flash": "^0.1.1",
+    "connect-mongo": "^6.0.0",
     "cookie-parser": "^1.4.7",
     "dotenv": "^17.3.1",
     "ejs": "^3.1.10",
@@ -29,6 +33,7 @@
     "express": "^4.21.1",
     "express-session": "^1.19.0",
     "joi": "^17.13.3",
+    "leaflet": "^1.9.4",
     "method-override": "^3.0.0",
     "mongoose": "^8.7.0",
     "multer": "^2.1.1",

@@ -10,8 +10,6 @@ module.exports.index = async (req, res) => {
 }
 
 
-
-
 module.exports.searchBar = async (req, res) => {
     let { search } = req.body;
 
@@ -39,6 +37,24 @@ module.exports.searchBar = async (req, res) => {
 
 
 
+module.exports.searchFilter = async (req, res) => {
+    let { filterName } = req.body;
+
+    if (!filterName || filterName.trim() === "") {
+        return res.redirect("/allList");
+    }
+
+    let key = filterName.trim();
+    let result = await Listing.find({ filter: key});
+
+    if (result.length == 0) {
+        req.flash("error", "No list found");
+        return res.redirect("/allList");
+    }
+    res.render("listing/filterSearch", { result, filterName });
+}
+
+
 
 module.exports.newForm = (req, res) => {
     res.render("listing/new");
@@ -46,38 +62,39 @@ module.exports.newForm = (req, res) => {
 
 
 
-
 module.exports.createListing = async (req, res) => {
     let data = req.body.listing;
+
     let list = new Listing(data);
     list.owner = req.user._id;
 
-    // Image
-    let url = req.file.path;
-    let filename = req.file.filename;
-    list.image = { url, filename };
+    // image
+    list.image = {
+        url: req.file.path,
+        filename: req.file.filename
+    };
 
-    // ✅ Geocoding HERE
-    const location = data.location;
-    const geoResponse = await axios.get(`https://api.maptiler.com/geocoding/${location}.json?key=yMgpqYhUEzM34PVZvagy`);
+    // 🌍 GEOJSON FROM CITY/LOCATION
+    const geoResponse = await axios.get(
+        `https://api.maptiler.com/geocoding/${data.location}.json?key=${process.env.MAPTILER_API_KEY}`
+    );
 
-    if (!geoResponse.data.features.length) {
+    if (!geoResponse.data.features || !geoResponse.data.features.length) {
         throw new ExpressError(400, "Invalid location");
     }
 
-    const coordinates = geoResponse.data.features[0].geometry.coordinates;
+    const feature = geoResponse.data.features[0];
 
     list.geometry = {
         type: "Point",
-        coordinates: coordinates
+        coordinates: feature.geometry.coordinates
     };
 
     await list.save();
-    req.flash("done", "New list Added");
+
+    req.flash("done", "New listing created");
     res.redirect("/allList");
 };
-
-
 
 
 module.exports.showListing = async (req, res) => {
@@ -103,44 +120,51 @@ module.exports.editForm = async (req, res) => {
 }
 
 
-
-
 module.exports.updateListing = async (req, res) => {
     let { id } = req.params;
     let data = req.body.listing;
 
     let existing = await Listing.findById(id);
-    if (!existing) throw new ExpressError(404, "Listing not found");
+    if (!existing) {
+        throw new ExpressError(404, "Listing not found");
+    }
 
-    // Handle image update
+    // image handling
     if (req.file) {
-        let url = req.file.path;
-        let filename = req.file.filename;
-        data.image = { url, filename };
+        data.image = {
+            url: req.file.path,
+            filename: req.file.filename
+        };
     } else {
-        // Preserve existing image
         data.image = existing.image;
     }
 
+    // geo update (ONLY if location changed)
     if (data.location) {
-        const geoResponse = await axios.get(
-            `https://api.maptiler.com/geocoding/${data.location}.json?key=yMgpqYhUEzM34PVZvagy`
-        );
+        try {
+            const geoResponse = await axios.get(
+                `https://api.maptiler.com/geocoding/${data.location}.json?key=${process.env.MAPTILER_API_KEY}`
+            );
 
-        if (geoResponse.data.features.length) {
-            data.geometry = {
-                type: "Point",
-                coordinates: geoResponse.data.features[0].geometry.coordinates
-            };
+            if (geoResponse.data.features?.length) {
+                data.geometry = {
+                    type: "Point",
+                    coordinates: geoResponse.data.features[0].geometry.coordinates
+                };
+            }
+        } catch (err) {
+            console.log("Geocoding failed, keeping old location");
+            data.geometry = existing.geometry;
         }
     }
 
-    await Listing.findByIdAndUpdate(id, data, { runValidators: true });
+    await Listing.findByIdAndUpdate(id, data, {
+        runValidators: true
+    });
+
     req.flash("done", "List updated");
     res.redirect(`/allList/${id}`);
-}
-
-
+};
 
 
 module.exports.deleteListing = async (req, res) => {
@@ -148,3 +172,7 @@ module.exports.deleteListing = async (req, res) => {
     req.flash("error", "List deleted");
     res.redirect("/allList");
 }
+
+module.exports.privacy = async (req, res) => {
+    res.render("privacy.ejs");
+};
